@@ -1,0 +1,5 @@
+CREATE TABLE users
+INSERT INTO users VALUES (25, John, 1)
+INSERT INTO users VALUES (30, Alice, 2)
+SELECT id, name, age FROM users WHERE 
+SELECT name, age FROM users WHERE 

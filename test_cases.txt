@@ -1,0 +1,125 @@
+# SmritiDB Test Cases
+
+## CREATE TABLE Tests
+1. Valid CREATE TABLE:
+   create table users id string name string age int
+   Expected: Table created successfully
+
+2. Invalid CREATE TABLE (missing column type):
+   create table invalid_table id string name
+   Expected: Error about invalid column definition
+
+3. Duplicate CREATE TABLE:
+   create table users id string name string
+   Expected: Failed to create table (already exists)
+
+4. CREATE TABLE with special characters:
+   create table special_chars id string "user name" string
+   Expected: Table created successfully
+
+## INSERT Tests
+5. Valid INSERT:
+   insert into users id 1 name John age 25
+   Expected: Data inserted successfully
+
+6. Invalid INSERT (missing ID field):
+   insert into users name Bob age 35
+   Expected: Error about missing 'id' field
+
+7. Invalid INSERT (table doesn't exist):
+   insert into non_existent id 3 name Test
+   Expected: Failed to insert data
+
+8. INSERT with duplicate ID:
+   insert into users id 1 name John age 25
+   insert into users id 1 name Alice age 30
+   Expected: Second insert fails due to duplicate ID
+
+## SELECT Tests
+9. Valid SELECT all columns:
+   select id name age from users
+   Expected: Displays all user data
+
+10. Valid SELECT specific columns:
+    select name age from users
+    Expected: Displays only name and age
+
+11. Invalid SELECT (missing FROM clause):
+    select from users
+    Expected: Error about invalid SELECT syntax
+
+12. Invalid SELECT (non-existent table):
+    select * from non_existent
+    Expected: No records found
+
+13. SELECT with WHERE condition:
+    select id name from users where id = 1
+    Expected: Displays only matching record
+
+## DELETE Tests
+14. Valid DELETE:
+    delete from users where id = 1
+    Expected: Record deleted successfully
+
+15. Invalid DELETE (missing WHERE clause):
+    delete from users
+    Expected: Error about missing WHERE clause
+
+16. Invalid DELETE (non-existent table):
+    delete from non_existent where id = 1
+    Expected: Failed to delete data
+
+17. DELETE non-existent record:
+    delete from users where id = 999
+    Expected: No records deleted
+
+## UPDATE Tests
+18. Valid UPDATE:
+    update users set name = 'Alice' where id = 1
+    Expected: Record updated successfully
+
+19. Invalid UPDATE (missing SET clause):
+    update users where id = 1
+    Expected: Error about invalid UPDATE syntax
+
+20. Invalid UPDATE (non-existent table):
+    update non_existent set name = 'Bob' where id = 1
+    Expected: Failed to update data
+
+21. UPDATE non-existent record:
+    update users set name = 'Bob' where id = 999
+    Expected: No records updated
+
+## ORDER BY Tests
+22. Valid ORDER BY (ascending):
+    select id, name from users order by name asc
+    Expected: Records sorted by name in ascending order
+
+23. Valid ORDER BY (descending):
+    select id, name from users order by name desc
+    Expected: Records sorted by name in descending order
+
+24. Invalid ORDER BY (non-existent column):
+    select id, name from users order by non_existent
+    Expected: Error about invalid column in ORDER BY
+
+## Edge Cases
+25. Empty command:
+    
+    Expected: No output
+
+26. Invalid command:
+    invalid command
+    Expected: Error about invalid command
+
+27. Mixed case commands:
+    CrEaTe TaBlE test id INT
+    Expected: Table created successfully
+
+28. Very long command:
+    create table long_table id string name string age int address string phone string email string
+    Expected: Table created successfully
+
+29. SQL injection attempt:
+    select * from users where id = '1 OR 1=1'
+    Expected: No records found (safe handling of input)
