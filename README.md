@@ -91,6 +91,6 @@ int main() {
     
     auto results = db.select("users", {"name", "age"}, "age > 25");
     
-    return 0;
+    return 0; 
 }
 ```
